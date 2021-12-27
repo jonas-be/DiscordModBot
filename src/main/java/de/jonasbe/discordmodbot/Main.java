@@ -1,0 +1,107 @@
+package de.jonasbe.discordmodbot;
+
+import de.jonasbe.discordmodbot.commands.commands.DeleteCommand;
+import de.jonasbe.discordmodbot.commands.commands.HelpCommand;
+import de.jonasbe.discordmodbot.commands.util.CommandHandler;
+import de.jonasbe.discordmodbot.commands.util.Log;
+import de.jonasbe.discordmodbot.listener.JoinListener;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.requests.GatewayIntent;
+import net.dv8tion.jda.api.utils.Compression;
+import net.dv8tion.jda.api.utils.cache.CacheFlag;
+
+import javax.security.auth.login.LoginException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Properties;
+
+public class Main {
+
+    private static JDA jda;
+    private static CommandHandler commandHandler;
+
+    private static Properties confProps;
+
+    private static String cmdPrefix = "!";
+
+
+    public static void main(String[] args) {
+        try {
+            commandHandler = new CommandHandler();
+
+            jda = JDABuilder.createDefault(args[0])
+
+                    .enableIntents(GatewayIntent.GUILD_MEMBERS)
+
+                    // Disable parts of the cache
+                    .disableCache(CacheFlag.MEMBER_OVERRIDES, CacheFlag.VOICE_STATE)
+
+                    // Enable the bulk delete event
+                    .setBulkDeleteSplittingEnabled(false)
+
+                    // Disable compression (not recommended)
+                    .setCompression(Compression.NONE)
+
+
+                    // Add Listeners
+                    .addEventListeners(
+                            new JoinListener())
+//                            new TicTacToe())
+
+                    .addEventListeners(commandHandler)
+
+
+                    .build().awaitReady();
+
+        } catch (InterruptedException | LoginException e) {
+            e.printStackTrace();
+        }
+
+        // Set activity (like "playing Something")
+        jda.getPresence().setActivity(Activity.streaming("SirF4wke2", "https://www.twitch.tv/sirf4wke2"));
+
+
+        commandHandler.registerCommand(new String[]{"del", "delete"}, new DeleteCommand(), "deletePermission");
+        commandHandler.registerCommand("help", new HelpCommand());
+
+//        commandHandler.registerCommand(new String[]{"tic", "tictactoe"}, new TicTacToe());
+
+
+        loadProps();
+
+
+    }
+
+    public static void loadProps() {
+        Log.info("Loading Config...");
+
+
+        String rootPath = "";
+        String appConfigPath = rootPath + "conf.properties";
+
+        confProps = new Properties();
+
+        try {
+            confProps.load(new FileInputStream(appConfigPath));
+
+            Log.info("Loaded Version: " + confProps.get("version"));
+
+        } catch (FileNotFoundException notFoundException) {
+            Log.error("ConfigFile can not loaded!");
+
+        } catch (IOException e) {
+            Log.error(e.getStackTrace().toString());
+        }
+    }
+
+    public static Properties getProps() {
+        return confProps;
+    }
+
+    public static JDA getJDA() {
+        return jda;
+    }
+}
