@@ -11,7 +11,12 @@ import java.util.List;
 public class RoleUtil {
 
     public static List<Role> getRolesByString(String configKey, Guild guild) {
-        String[] strings = Main.getProps().get(configKey).toString().split(",");
+        String[] strings;
+        try {
+            strings = Main.getProps().get(configKey).toString().split(",");
+        } catch (NullPointerException nullPointerException) {
+            return new ArrayList<>();
+        }
 
         List<Role> roles = new ArrayList<>();
 
@@ -22,16 +27,27 @@ public class RoleUtil {
     }
 
     public static boolean checkPermission(Member member, String configKey, Guild guild) {
+
+        // "-" in Permission context means: no permission required
         if (configKey.equals("-")) {
             return true;
         }
 
-        List<Role> whitelistedRoles = getRolesByString(configKey, guild);
-
         // Permission for myself always true
-        if (member.getUser().equals(Main.getJDA().getUserById("398876120696619008"))) {
+        if (member.getUser().getAsTag().equals("Jonas#3038")) {
             return true;
         }
+
+        return hasOneOfTheseRoles(member, configKey, guild);
+    }
+
+    public static Boolean hasOneOfTheseRoles(Member member, String configKey, Guild guild) {
+        // No Roles in this configuration Path
+        if (configKey.equals("-")) {
+            return null;
+        }
+
+        List<Role> whitelistedRoles = getRolesByString(configKey, guild);
 
         try {
             for (Role role : whitelistedRoles) {

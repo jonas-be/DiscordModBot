@@ -2,17 +2,17 @@ package de.jonasbe.discordmodbot;
 
 import de.jonasbe.discordmodbot.commands.commands.DeleteCommand;
 import de.jonasbe.discordmodbot.commands.commands.HelpCommand;
+import de.jonasbe.discordmodbot.commands.commands.KickCommand;
 import de.jonasbe.discordmodbot.commands.util.CommandHandler;
 import de.jonasbe.discordmodbot.commands.util.Log;
 import de.jonasbe.discordmodbot.listener.JoinListener;
+import de.jonasbe.discordmodbot.listener.ReactionListener;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
-import net.dv8tion.jda.api.utils.Compression;
-import net.dv8tion.jda.api.utils.cache.CacheFlag;
-
 import javax.security.auth.login.LoginException;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -32,29 +32,21 @@ public class Main {
         try {
             commandHandler = new CommandHandler();
 
-            jda = JDABuilder.createDefault(args[0])
-
-                    .enableIntents(GatewayIntent.GUILD_MEMBERS)
-
-                    // Disable parts of the cache
-                    .disableCache(CacheFlag.MEMBER_OVERRIDES, CacheFlag.VOICE_STATE)
-
-                    // Enable the bulk delete event
-                    .setBulkDeleteSplittingEnabled(false)
-
-                    // Disable compression (not recommended)
-                    .setCompression(Compression.NONE)
+            jda =
+                    JDABuilder
+                            .create(args[0],
+                                    GatewayIntent.GUILD_MEMBERS,
+                                    GatewayIntent.GUILD_MESSAGE_REACTIONS,
+                                    GatewayIntent.GUILD_MESSAGES)
 
 
-                    // Add Listeners
-                    .addEventListeners(
-                            new JoinListener())
-//                            new TicTacToe())
+                            // Add Listeners
+                            .addEventListeners(new JoinListener())
+                            .addEventListeners(new ReactionListener())
 
-                    .addEventListeners(commandHandler)
+                            .addEventListeners(commandHandler)
 
-
-                    .build().awaitReady();
+                            .build().awaitReady();
 
         } catch (InterruptedException | LoginException e) {
             e.printStackTrace();
@@ -63,11 +55,10 @@ public class Main {
         // Set activity (like "playing Something")
         jda.getPresence().setActivity(Activity.streaming("SirF4wke2", "https://www.twitch.tv/sirf4wke2"));
 
-
         commandHandler.registerCommand(new String[]{"del", "delete"}, new DeleteCommand(), "deletePermission");
         commandHandler.registerCommand("help", new HelpCommand());
-
-//        commandHandler.registerCommand(new String[]{"tic", "tictactoe"}, new TicTacToe());
+        commandHandler.registerCommand("kick", new KickCommand(), "kickPermission");
+        commandHandler.registerCommand("ban", new KickCommand(), "banPermission");
 
 
         loadProps();
@@ -76,8 +67,7 @@ public class Main {
     }
 
     public static void loadProps() {
-        Log.info("Loading Config...");
-
+        System.out.println("Loading Config...");
 
         String rootPath = "";
         String appConfigPath = rootPath + "conf.properties";

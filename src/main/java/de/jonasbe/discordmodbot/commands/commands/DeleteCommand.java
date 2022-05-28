@@ -1,5 +1,8 @@
 package de.jonasbe.discordmodbot.commands.commands;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.jonasbe.discordmodbot.commands.util.CommandExecutor;
 import de.jonasbe.discordmodbot.commands.util.Log;
 import net.dv8tion.jda.api.entities.Message;
@@ -14,14 +17,33 @@ public class DeleteCommand implements CommandExecutor {
             return;
         }
 
+        List<Message> messages;
         try {
-            Log.audit(e.getMember().getUser().getName() + " deleted:");
-            for (Message m : e.getChannel().getHistory().retrievePast(Integer.parseInt(args[0]) + 1).complete()) {
-                m.delete().queue();
-                Log.audit("   -> " + m.getContentRaw());
-            }
+            messages = e.getChannel().getHistory().retrievePast(Integer.parseInt(args[0]) + 1).complete();
 
-        } catch (NumberFormatException Ignored) {}
+        } catch (NumberFormatException Ignored) {
+            // Input not a valid number
+            Log.info(String.format("\"%s\" try to delete something. But the input was a invalid number.",
+                    e.getMember().getUser().getAsTag()));
+            return;
+
+        } catch (IllegalArgumentException illegalArgumentException) {
+            // Input to high
+            Log.info(String.format("\"%s\" try to delete something. But the input was to high.",
+                    e.getMember().getUser().getAsTag()));
+            return;
+        }
+
+
+        e.getTextChannel().purgeMessages(messages);
+
+        String deleted = "";
+        for (Message m : messages) {
+            deleted = deleted + " -> " + m.getContentRaw() + "\n";
+        }
+        Log.audit(String.format("\"%s\" deleted: \n%s",
+                e.getMember().getUser().getAsTag(),
+                deleted));
 
     }
 

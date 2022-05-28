@@ -17,30 +17,70 @@ public class HelpCommand implements CommandExecutor {
     @Override
     public void onCommand(MessageReceivedEvent event, String[] args) {
 
+        event.getChannel().sendMessageEmbeds(
+                getGeneralHelp(),
+                getCommandHelp("help", event.getGuild(), false),
+                getCommandHelp("delete", event.getGuild(), false),
+                getCommandHelp("kick", event.getGuild(), false),
+                getCommandHelp("ban", event.getGuild(), false)
 
-        event.getChannel().sendMessageEmbeds(getCommandHelp("delete", event.getGuild())).queue();
+
+        ).queue();
     }
 
-    public MessageEmbed getCommandHelp(String commandString, Guild guild) {
+    public MessageEmbed getCommandHelp(String commandString, Guild guild, boolean showVersion) {
 
         EmbedBuilder builder = new EmbedBuilder();
 
-
         builder.setColor(Color.PINK);
 
-        builder.setTitle("HELP:\t " + Main.getProps().getProperty(commandString + "HelpTitle"));
+        // Title (Command)
+        builder.setTitle(Main.getProps().getProperty(commandString + "HelpTitle"));
 
+        // Description
         builder.addField(new Field("Description",
                 Main.getProps().getProperty(commandString + "HelpDescription"), false));
 
+        // Permission
         StringBuilder whitelistedRoles = new StringBuilder();
-        for (Role role: RoleUtil.getRolesByString(commandString + "Permission", guild)) {
+        for (Role role : RoleUtil.getRolesByString(commandString + "Permission", guild)) {
             whitelistedRoles.append("- " + role.getName() + "\n");
         }
 
-        builder.addField(new Field("Permission", whitelistedRoles.toString(), false));
+        if (!whitelistedRoles.toString().isEmpty()) {
+            builder.addField(new Field("Permission", whitelistedRoles.toString(), false));
+        } else {
+            builder.addField(new Field("Permission", "- everybody", false));
+
+        }
 
 
+        // Sub title (Version)
+        if (showVersion) {
+            builder.setFooter("[Version]: " + Main.getProps().getProperty("version"));
+        }
+
+        return builder.build();
+    }
+
+    public MessageEmbed getGeneralHelp() {
+
+        EmbedBuilder builder = new EmbedBuilder();
+
+        builder.setColor(Color.ORANGE);
+
+        // Title (Command)
+        builder.setTitle("HELP");
+
+        // Description
+        builder.addField(new Field("Description",
+                Main.getProps().getProperty("HelpDescription"), false));
+
+        // Coded by
+        builder.addField(new Field("*Coded by Jonas*",
+                "", false));
+
+        // Sub title (Version)
         builder.setFooter("[Version]: " + Main.getProps().getProperty("version"));
 
         return builder.build();
