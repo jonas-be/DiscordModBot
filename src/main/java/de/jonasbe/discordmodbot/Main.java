@@ -11,6 +11,7 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+
 import javax.security.auth.login.LoginException;
 
 import java.io.FileInputStream;
@@ -52,8 +53,6 @@ public class Main {
             e.printStackTrace();
         }
 
-        // Set activity (like "playing Something")
-        jda.getPresence().setActivity(Activity.streaming("SirF4wke2", "https://www.twitch.tv/sirf4wke2"));
 
         commandHandler.registerCommand(new String[]{"del", "delete"}, new DeleteCommand(), "deletePermission");
         commandHandler.registerCommand("help", new HelpCommand());
@@ -64,6 +63,14 @@ public class Main {
         loadProps();
 
 
+        // Set activity (like "playing Something")
+        jda.getPresence().setActivity(
+                Activity.of(
+                        Activity.ActivityType.fromKey(Integer.parseInt(confProps.get("activityTypeInt").toString())),
+                        String.valueOf(confProps.get("activityName")),
+                        String.valueOf(confProps.get("activityUrl"))
+                ));
+//                Activity.streaming("SirF4wke2", "https://www.twitch.tv/sirf4wke2"));
     }
 
     public static void loadProps() {
