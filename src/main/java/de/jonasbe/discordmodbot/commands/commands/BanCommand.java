@@ -22,7 +22,7 @@ public class BanCommand implements CommandExecutor {
                 return;
             }
 
-            // kick member
+            // ban member
             event.getMessage().getMentionedMembers().get(0).ban(0).queue();
             Log.audit(String.format("\"%s\" banned \"%s\".",
                     event.getMember().getUser().getAsTag(),

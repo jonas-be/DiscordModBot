@@ -53,7 +53,6 @@ public class Main {
             e.printStackTrace();
         }
 
-
         commandHandler.registerCommand(new String[]{"del", "delete"}, new DeleteCommand(), "deletePermission");
         commandHandler.registerCommand("help", new HelpCommand());
         commandHandler.registerCommand("kick", new KickCommand(), "kickPermission");
@@ -63,14 +62,12 @@ public class Main {
         loadProps();
 
 
-        // Set activity (like "playing Something")
         jda.getPresence().setActivity(
                 Activity.of(
                         Activity.ActivityType.fromKey(Integer.parseInt(confProps.get("activityTypeInt").toString())),
                         String.valueOf(confProps.get("activityName")),
                         String.valueOf(confProps.get("activityUrl"))
                 ));
-//                Activity.streaming("SirF4wke2", "https://www.twitch.tv/sirf4wke2"));
     }
 
     public static void loadProps() {
