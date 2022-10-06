@@ -1,5 +1,6 @@
-import {Client, GuildMember, Role, SlashCommandBuilder} from "discord.js";
+import {Client, Role, SlashCommandBuilder} from "discord.js";
 import {Config} from "./types/types";
+import {RoleUtil} from "./utils/role_util";
 
 const {ActionRowBuilder, SelectMenuBuilder} = require('discord.js');
 
@@ -12,47 +13,49 @@ export class RoleSelector {
         this.config = config
     }
 
-    static command() {
+    static command(config: Config) {
         return new SlashCommandBuilder()
-            .setName('jobrole')
-            .setDescription('Replies with role Selector')
+            .setName(config.selectRoleCommand)
+            .setDescription(config.selectRoleCommandDescription)
     }
 
-    registerSelector() {
+    register() {
         this.client.on('interactionCreate', async (interaction) => {
 
             if (interaction.guild != this.client.guilds.cache.get(this.config.guild)) return
 
             if (interaction.isChatInputCommand()) {
-                if (interaction.commandName === 'jobrole') {
+                if (interaction.commandName === this.config.selectRoleCommand) {
                     const row = new ActionRowBuilder()
                         .addComponents(
                             new SelectMenuBuilder()
-                                .setCustomId('select')
-                                .setPlaceholder('Wähle dein Beruf aus')
+                                .setCustomId('role-select')
+                                .setPlaceholder(this.config.selectRolePlaceholder)
                                 .addOptions(
-                                    this.config.jobRoles
+                                    this.config.selectRoleItems
                                 ),
                         );
 
-                    await interaction.reply({content: 'Deine Rolle:', components: [row]});
+                    await interaction.reply({content: this.config.selectRoleContent, components: [row]});
                 }
             }
 
             if (interaction.isSelectMenu()) {
-                if (interaction.customId == 'select') {
-                    console.log(interaction.values);
+                if (interaction.customId == 'role-select') {
+                    let roleAdded = ""
+                    //@ts-ignore
+                    const roleUtil = new RoleUtil(interaction.guild, interaction.member)
                     let selected = interaction.values
-                    let roleId = this.config.jobRoles.filter(
-                        i => { if (i.value == selected[0]) return i.roleId })[0];
-                    const role: Role | undefined = interaction.guild.roles.cache.find((role: Role) => role.id === roleId.roleId);
-                    if (interaction.member instanceof GuildMember && role != undefined) {
-                        const member: GuildMember = interaction.member
-                        member.roles.add(role);
-                        console.log(`added ${role.name} to ${member.user.username}`)
-                    } else {
-                        console.log("failed adding role")
+                    for (const roleToToggle of this.config.selectRoleItems) {
+                        if (roleToToggle.value == selected[0]) {
+                            roleUtil.addRole(roleUtil.getRoleById(roleToToggle.roleId))
+                            roleAdded = `<@&${roleToToggle.roleId}>`
+                        } else {
+                            roleUtil.removeRole(roleUtil.getRoleById(roleToToggle.roleId))
+                        }
                     }
+
+                    await interaction.reply({ content: `Deine Rolle wurde zu ${roleAdded} geändert!`, ephemeral: true });
                 }
             }
         });

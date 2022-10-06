@@ -24,7 +24,7 @@ export class CommandUpdater {
             commands.push(slashCommand.toJSON());
         }
 
-        const rest = new REST({version: '10'}).setToken(this.tokenConfig);
+        const rest = new REST({version: '10'}).setToken(this.tokenConfig.token);
 
         (async () => {
             try {

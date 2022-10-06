@@ -4,8 +4,8 @@ import {RoleSelector} from "./role_selector";
 import {CommandUpdater} from "./utils/command_updater";
 
 const { Client, GatewayIntentBits } = require('discord.js');
-const { tokenConfig } = require('../token-config.json');
-const  config  = require('../config.json');
+const tokenConfig  = require('../token-config.json');
+const config  = require('../config.json');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMembers, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildIntegrations ] });
 
@@ -17,9 +17,9 @@ client.once('ready', (c: { user: { tag: any; }; }) => {
 new JoinLeave(client, config).register()
 new Messages(client).register()
 
-new RoleSelector(client, config).registerSelector()
+new RoleSelector(client, config).register()
 
-new CommandUpdater(client, tokenConfig, config, [RoleSelector.command()]).update()
+new CommandUpdater(client, tokenConfig, config, [RoleSelector.command(config)]).update()
 
 
-client.login(tokenConfig);
+client.login(tokenConfig.token);

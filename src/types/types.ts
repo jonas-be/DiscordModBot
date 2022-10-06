@@ -1,13 +1,18 @@
 export type Config = {
-    defaultRole: string;
-    jobRoles: {
+    clientId: string,
+    guild: string,
+    defaultRole: string,
+    selectRoleCommand: string,
+    selectRoleCommandDescription: string,
+    selectRolePlaceholder: string,
+    selectRoleContent: string,
+    selectRoleItems: {
         label: string,
         description: string,
         value: string,
         roleId: string
-    }[];
-    clientId: string,
-    guild: string,
+    }[],
+
 };
 
 export type TokenConfig = {
