@@ -1,0 +1,20 @@
+{
+  "dependencies": {
+    "discord.js": "^14.5.0",
+    "typescript": "^4.8.4"
+  },
+  "name": "discordmodbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc && node dist/index.js",
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.6.5"
+  }
+}
