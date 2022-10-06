@@ -1,37 +1,25 @@
-import { GuildMember, Message, Role,} from "discord.js";
+import {JoinLeave} from "./join_leave";
+import {Messages} from "./messages";
+import {RoleSelector} from "./role_selector";
+import {CommandUpdater} from "./utils/command_updater";
 
 const { Client, GatewayIntentBits } = require('discord.js');
-const { token } = require('../token-config.json');
-const { config } = require('../config.json');
+const { tokenConfig } = require('../token-config.json');
+const  config  = require('../config.json');
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMembers, GatewayIntentBits.MessageContent ] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMembers, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildIntegrations ] });
 
 client.once('ready', (c: { user: { tag: any; }; }) => {
     console.log(`Ready! Logged in as ${c.user.tag}`);
 });
 
-client.on("guildMemberAdd", function(member: GuildMember){
-    console.log(`a user joins a guild: ${member.user.tag}`);
 
-    const role: Role | undefined = member.guild.roles.cache.find((role: Role) => role.id === "1027233143054405723");
-    if (role != undefined) {
-        member.roles.add(role);
-        console.log(`added ${role.name} to ${member.user.tag}`)
-    } else {
-        console.log(`adding role to ${member.user.tag} failed!`)
-    }
-});
+new JoinLeave(client, config).register()
+new Messages(client).register()
 
-// Probably not working
-client.on('guildMemberRemove', function(member: GuildMember) {
-    console.log(`${member.user.tag} left the server :/`)
-});
+new RoleSelector(client, config).registerSelector()
 
-client.on("messageCreate", (message: Message) => {
-    console.log(`${message.member?.user.tag}: ${message.content}`)
-    if (message.content.startsWith("ping")) {
-        message.channel.send(`${message.member?.user} pong!`);
-    }
-});
+new CommandUpdater(client, tokenConfig, config, [RoleSelector.command()]).update()
 
-client.login(token);
+
+client.login(tokenConfig);
