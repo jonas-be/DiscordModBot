@@ -1,0 +1,31 @@
+{
+  "clientId": "893595206157492295",
+  "guild": "1027232659224662116",
+  "defaultRole": "1027233143054405723",
+  "toggleRole": {
+    "command": "jobrole",
+    "commandDescription": "jobrole",
+    "selectorPlaceholder": "Wähle dein Beruf aus",
+    "messageContent": "Deine Rolle:",
+    "roles": [
+      {
+        "label": "Informatiker",
+        "description": "Ein Job",
+        "value": "job_it",
+        "roleId": "1027592520236028025"
+      },
+      {
+        "label": "Elektriker",
+        "description": "Ein Job",
+        "value": "job_electric",
+        "roleId": "1027592408675909712"
+      },
+      {
+        "label": "Zerspanungsmechaniker",
+        "description": "Ein Job",
+        "value": "job_mechanic",
+        "roleId": "1027592257920057404"
+      }
+    ]
+  }
+}
