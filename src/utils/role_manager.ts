@@ -12,13 +12,13 @@ export class RoleManager {
     addRole(role: Role | undefined) {
         if (role === undefined) return
         this.member.roles.add(role)
-        console.log(`+++ ${role.name} => ${this.member.user.username}`)
+            .then(r => console.log(`+++ ${role.name} => ${r.user.username}`))
     }
 
     removeRole(role: Role | undefined) {
         if (role === undefined) return
         this.member.roles.remove(role)
-        console.log(`--- ${role.name} => ${this.member.user.username}`)
+            .then(r =>  console.log(`--- ${role.name} => ${r.user.username}`))
     }
 
     getRoleById(id: string): Role | undefined {
@@ -34,6 +34,4 @@ export class RoleManager {
             console.log(`ERR: No Role found by name: ${name}`)
         return role
     }
-
-
 }
