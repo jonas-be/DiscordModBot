@@ -1,6 +1,6 @@
 import {JoinLeave} from "./join-leave";
 import {Messages} from "./messages";
-import {RoleSelector} from "./role-selector";
+import {RoleToggler} from "./role-toggler";
 import {CommandUpdater} from "./utils/command-updater";
 
 const { Client, GatewayIntentBits } = require('discord.js');
@@ -17,9 +17,9 @@ client.once('ready', (c: { user: { tag: any; }; }) => {
 new JoinLeave(client, config).register()
 new Messages(client).register()
 
-new RoleSelector(client, config).register()
+new RoleToggler(client, config).register()
 
-new CommandUpdater(client, tokenConfig, config, [RoleSelector.command(config)]).update()
+new CommandUpdater(client, tokenConfig, config, [RoleToggler.command(config)]).update()
 
 
 client.login(tokenConfig.token);
