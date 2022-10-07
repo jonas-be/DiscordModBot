@@ -1,10 +1,10 @@
-import {Client, Role, SlashCommandBuilder} from "discord.js";
+import {Client, SlashCommandBuilder} from "discord.js";
 import {Config} from "./types/types";
 import {RoleManager} from "./utils/role-manager";
 
 const {ActionRowBuilder, SelectMenuBuilder} = require('discord.js');
 
-export class RoleSelector {
+export class RoleToggler {
     private client: Client;
     private config: Config;
 
