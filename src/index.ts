@@ -1,7 +1,7 @@
-import {JoinLeave} from "./join_leave";
+import {JoinLeave} from "./join-leave";
 import {Messages} from "./messages";
-import {RoleSelector} from "./role_selector";
-import {CommandUpdater} from "./utils/command_updater";
+import {RoleSelector} from "./role-selector";
+import {CommandUpdater} from "./utils/command-updater";
 
 const { Client, GatewayIntentBits } = require('discord.js');
 const tokenConfig  = require('../token-config.json');

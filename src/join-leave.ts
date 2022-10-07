@@ -1,6 +1,6 @@
 import {Client, GuildMember, Role} from "discord.js";
 import {Config} from "./types/types";
-import {RoleManager} from "./utils/role_manager";
+import {RoleManager} from "./utils/role-manager";
 
 export class JoinLeave {
     private client: Client;

@@ -1,6 +1,6 @@
 import {Client, Role, SlashCommandBuilder} from "discord.js";
 import {Config} from "./types/types";
-import {RoleManager} from "./utils/role_manager";
+import {RoleManager} from "./utils/role-manager";
 
 const {ActionRowBuilder, SelectMenuBuilder} = require('discord.js');
 
