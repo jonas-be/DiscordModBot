@@ -5,6 +5,10 @@
   "toggleRole": {
     "command": "sortinghat",
     "commandDescription": "Sprechender Hut",
+    "commandPermission": {
+      "roleIDs": [],
+      "usersIDs": []
+    },
     "selectorPlaceholder": "Wähle dein Haus",
     "messageContent": "Zum Freischalten müsst ihr eine dieser Rollen wählen.\nWenn ihr nicht wisst was damit gemeint ist, dann könnt ihr auch von der Farbe her euch entscheiden.\nWelchen Rang ihr wählt spielt keine Rolle und ist theoretisch nur zum Spaß.",
     "roles": [
