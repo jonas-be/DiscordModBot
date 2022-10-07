@@ -1,5 +1,6 @@
 import {Client, GuildMember, Role} from "discord.js";
 import {Config} from "./types/types";
+import {RoleManager} from "./utils/role_manager";
 
 export class JoinLeave {
     private client: Client;
@@ -14,14 +15,9 @@ export class JoinLeave {
         this.client.on("guildMemberAdd", async (member: GuildMember) =>{
             console.log(`a user joins a guild: ${member.user.tag}`);
 
-            const role: Role | undefined = member.guild.roles.cache.find((role: Role) => role.id === this.config.defaultRole);
+            const roleManager = new RoleManager(member.guild, member)
 
-            if (role != undefined) {
-                member.roles.add(role);
-                console.log(`added ${role.name} to ${member.user.tag}`)
-            } else {
-                console.log(`adding role to ${member.user.tag} failed!`)
-            }
+            roleManager.addRole(roleManager.getRoleById(this.config.defaultRole))
         });
     }
 }
