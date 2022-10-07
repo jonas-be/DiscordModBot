@@ -1,6 +1,6 @@
 import {Client, Role, SlashCommandBuilder} from "discord.js";
 import {Config} from "./types/types";
-import {RoleUtil} from "./utils/role_util";
+import {RoleManager} from "./utils/role_manager";
 
 const {ActionRowBuilder, SelectMenuBuilder} = require('discord.js');
 
@@ -44,14 +44,14 @@ export class RoleSelector {
                 if (interaction.customId == 'role-select') {
                     let roleAdded = ""
                     //@ts-ignore
-                    const roleUtil = new RoleUtil(interaction.guild, interaction.member)
+                    const roleManager = new RoleManager(interaction.guild, interaction.member)
                     let selected = interaction.values
                     for (const roleToToggle of this.config.toggleRole.roles) {
                         if (roleToToggle.value == selected[0]) {
-                            roleUtil.addRole(roleUtil.getRoleById(roleToToggle.roleId))
+                            roleManager.addRole(roleManager.getRoleById(roleToToggle.roleId))
                             roleAdded = `<@&${roleToToggle.roleId}>`
                         } else {
-                            roleUtil.removeRole(roleUtil.getRoleById(roleToToggle.roleId))
+                            roleManager.removeRole(roleManager.getRoleById(roleToToggle.roleId))
                         }
                     }
 

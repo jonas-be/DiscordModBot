@@ -1,6 +1,6 @@
 import {Guild, GuildMember, Role} from "discord.js";
 
-export class RoleUtil {
+export class RoleManager {
     private guild: Guild
     private member: GuildMember
 
