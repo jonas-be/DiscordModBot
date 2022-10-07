@@ -44,7 +44,7 @@ export class RoleSelector {
                 if (interaction.customId == 'role-select') {
                     let roleAdded = ""
                     //@ts-ignore
-                    const roleManager = new RoleManager(interaction.guild, interaction.member)
+                    const roleManager = new RoleManager(interaction.member)
                     let selected = interaction.values
                     for (const roleToToggle of this.config.toggleRole.roles) {
                         if (roleToToggle.value == selected[0]) {

@@ -21,6 +21,6 @@ export type TokenConfig = {
 };
 
 export type Permission = {
-    groups: string[],
-    users: string[],
+    roleIDs: string[],
+    usersIDs: string[],
 };

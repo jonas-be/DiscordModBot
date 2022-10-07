@@ -15,7 +15,7 @@ export class JoinLeave {
         this.client.on("guildMemberAdd", async (member: GuildMember) =>{
             console.log(`a user joins a guild: ${member.user.tag}`);
 
-            const roleManager = new RoleManager(member.guild, member)
+            const roleManager = new RoleManager(member)
 
             roleManager.addRole(roleManager.getRoleById(this.config.defaultRole))
         });
