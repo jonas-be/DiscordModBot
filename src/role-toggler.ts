@@ -1,6 +1,7 @@
-import {Client, SlashCommandBuilder} from "discord.js";
+import {Client, GuildMember, SlashCommandBuilder} from "discord.js";
 import {Config} from "./types/types";
 import {RoleManager} from "./utils/role-manager";
+import {PermissionManager} from "./utils/permission-manager";
 
 const {ActionRowBuilder, SelectMenuBuilder} = require('discord.js');
 
@@ -25,18 +26,28 @@ export class RoleToggler {
             if (interaction.guild != this.client.guilds.cache.get(this.config.guild)) return
 
             if (interaction.isChatInputCommand()) {
-                if (interaction.commandName === this.config.toggleRole.command) {
-                    const row = new ActionRowBuilder()
-                        .addComponents(
-                            new SelectMenuBuilder()
-                                .setCustomId('role-select')
-                                .setPlaceholder(this.config.toggleRole.selectorPlaceholder)
-                                .addOptions(
-                                    this.config.toggleRole.roles
-                                ),
-                        );
+                if (interaction.commandName === this.config.toggleRole.command && interaction.member instanceof GuildMember) {
+                    if (new PermissionManager(this.config.toggleRole.commandPermission).hasUserPermission(interaction.member)) {
+                      const row = new ActionRowBuilder()
+                      .addComponents(
+                          new SelectMenuBuilder()
+                          .setCustomId('role-select')
+                          .setPlaceholder(this.config.toggleRole.selectorPlaceholder)
+                          .addOptions(
+                              this.config.toggleRole.roles
+                          ),
+                      );
 
-                    await interaction.reply({content: this.config.toggleRole.messageContent, components: [row]});
+                      await interaction.reply({
+                        content: this.config.toggleRole.messageContent,
+                        components: [row]
+                      });
+                    } else {
+                        await interaction.reply({
+                            content: `Du hast nicht die nötigen Rechte!`,
+                            ephemeral: true
+                        })
+                    }
                 }
             }
 
@@ -54,7 +65,6 @@ export class RoleToggler {
                             roleManager.removeRole(roleManager.getRoleById(roleToToggle.roleId))
                         }
                     }
-
                     await interaction.reply({ content: `Deine Rolle wurde zu ${roleAdded} geändert!`, ephemeral: true });
                 }
             }
