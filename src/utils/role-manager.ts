@@ -4,8 +4,8 @@ export class RoleManager {
     private guild: Guild
     private member: GuildMember
 
-    constructor(guild: Guild, member: GuildMember) {
-        this.guild = guild
+    constructor(member: GuildMember) {
+        this.guild = member.guild
         this.member = member
     }
 
@@ -33,5 +33,9 @@ export class RoleManager {
         if (role === undefined)
             console.log(`ERR: No Role found by name: ${name}`)
         return role
+    }
+
+    hasRole(role: Role): boolean {
+        return this.member.roles.cache.some(roleFromCache => roleFromCache == role)
     }
 }

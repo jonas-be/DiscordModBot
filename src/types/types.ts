@@ -5,6 +5,7 @@ export type Config = {
     toggleRole: {
         command: string,
         commandDescription: string,
+        commandPermission: Permission,
         selectorPlaceholder: string,
         messageContent: string,
         roles: {
@@ -21,6 +22,6 @@ export type TokenConfig = {
 };
 
 export type Permission = {
-    groups: string[],
-    users: string[],
+    roleIDs: string[],
+    usersIDs: string[],
 };
