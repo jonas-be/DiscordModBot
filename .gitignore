@@ -3,4 +3,4 @@ dist
 node_modules
 src/config.json
 /token-config.json
-/token-config.json
+/config.json
