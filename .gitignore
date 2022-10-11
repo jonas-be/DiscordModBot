@@ -1,6 +1,6 @@
 .idea
 dist
 node_modules
-src/config.json
+src
 /token-config.json
 /config.json
