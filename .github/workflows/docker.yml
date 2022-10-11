@@ -35,4 +35,7 @@ jobs:
       # Runs a single command using the runners shell
       - name: docker build
         run: | 
-          docker build . -t discord-mod-bot
+          docker build . -t discord-mod-bot:latest
+      - name: docker push
+        run: |
+          docker push discord-mod-bot:latest
