@@ -2,7 +2,6 @@
 dist
 configs
 node_modules
-src
 README.md
 .gitignore
 .dockerignore
