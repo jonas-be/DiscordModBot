@@ -1,0 +1,9 @@
+.idea
+dist
+configs
+node_modules
+README.md
+.gitignore
+.dockerignore
+/token-config.json
+/config.json
