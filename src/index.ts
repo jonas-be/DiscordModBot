@@ -1,6 +1,6 @@
-import {JoinLeave} from "./join-leave";
-import {Messages} from "./messages";
-import {RoleToggler} from "./role-toggler";
+import {JoinLeave} from "./listeners/join-leave";
+import {Messages} from "./listeners/messages";
+import {RoleToggler} from "./commands/role-toggler";
 import {CommandUpdater} from "./utils/command-updater";
 
 const { Client, GatewayIntentBits } = require('discord.js');
