@@ -1,0 +1,7 @@
+services:
+  discord-mod-bot:
+    build: .
+    image: jonasbe25/discord-mod-bot
+    volumes:
+      - ./token-config.json:/app/token-config.json
+      - ./config.json:/app/config.json
