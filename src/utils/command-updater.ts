@@ -1,5 +1,5 @@
 import {Client, SlashCommandBuilder} from "discord.js";
-import {Config, TokenConfig} from "../types/types";
+import {Config, TokenConfig} from "../types/config-types";
 
 const {REST, Routes} = require('discord.js');
 

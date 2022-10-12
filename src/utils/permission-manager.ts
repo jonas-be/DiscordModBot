@@ -1,4 +1,4 @@
-import {Permission} from "../types/types";
+import {Permission} from "../types/config-types";
 import {GuildMember, Role} from "discord.js";
 import {RoleManager} from "./role-manager";
 

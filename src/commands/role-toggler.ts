@@ -1,5 +1,5 @@
 import {Client, GuildMember, SlashCommandBuilder} from "discord.js";
-import {Config} from "../types/types";
+import {Config} from "../types/config-types";
 import {RoleManager} from "../utils/role-manager";
 import {PermissionManager} from "../utils/permission-manager";
 
