@@ -9,6 +9,7 @@
       "roleIDs": ["854817645353500733"],
       "usersIDs": []
     },
+    "deleteDefaultRole": false,
     "selectorPlaceholder": "Wähle deine Rolle",
     "messageContent": "Rollen Toggle",
     "roles": [

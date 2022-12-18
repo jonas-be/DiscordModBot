@@ -5,6 +5,11 @@
   "toggleRole": {
     "command": "jobrole",
     "commandDescription": "jobrole",
+    "commandPermission": {
+      "roleIDs": ["1027232659224662117"],
+      "usersIDs": ["398876120696619008"]
+    },
+    "deleteDefaultRole": false,
     "selectorPlaceholder": "Wähle dein Beruf aus",
     "messageContent": "Deine Rolle:",
     "roles": [

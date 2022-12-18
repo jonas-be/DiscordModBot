@@ -65,6 +65,10 @@ export class RoleToggler {
                             roleManager.removeRole(roleManager.getRoleById(roleToToggle.roleId))
                         }
                     }
+                    if (this.config.toggleRole.deleteDefaultRole) {
+                        console.log("delete join role")
+                        roleManager.removeRole(roleManager.getRoleById(this.config.defaultRole))
+                    }
                     await interaction.reply({ content: `Deine Rolle wurde zu ${roleAdded} geändert!`, ephemeral: true });
                 }
             }

@@ -6,6 +6,7 @@ export type Config = {
         command: string,
         commandDescription: string,
         commandPermission: Permission,
+        deleteDefaultRole: boolean,
         selectorPlaceholder: string,
         messageContent: string,
         roles: {
