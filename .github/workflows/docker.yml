@@ -50,17 +50,19 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
+      - name: Download kubeconfig
+        env:
+          KUBECONFIG: ${{ secrets.KUBECONFIG }}
+        run: |
+          mkdir .kube
+          echo $KUBECONFIG >> ./.kube/config
+          cat ./.kube/config
+
       - name: Setup kubectl
         uses: azure/setup-kubectl@v3
         with:
           version: latest
-      - name: Download kubeconfig
-        env:
-          KUBECONFIG: ${{ secrets.KUBECONFIG }}
-        run: | 
-          mkdir .kube
-          echo $KUBECONFIG >> ./.kube/config
-          cat ./.kube/config
+
 
       - name: Deploy to cluster
         run: |
