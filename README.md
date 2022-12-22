@@ -26,11 +26,8 @@ There 3 supported ways to run this bot:
 
 ### Nodejs
 
-#### Requirements
- - [npm](https://www.npmjs.com/) installed
- - [node](https://nodejs.org/) installed
+You need [npm](https://www.npmjs.com/) and [node](https://nodejs.org/) installed.
 
-#### Run
 1. First clone this Repository
 2. Setup ``token-config.json``
    1. create the file
@@ -45,11 +42,8 @@ There 3 supported ways to run this bot:
 
 ### Docker
 
-#### Requirements
-- [docker](https://docker.com/) installed
-- [docker-compose](https://docs.docker.com/compose/) installed
+Make shure you have [docker](https://docker.com/) with [docker-compose](https://docs.docker.com/compose/) installed.
 
-#### Run
 1. First get the ``docker-compose.yml``
 2. Setup ``token-config.json``
    1. create the file
@@ -62,11 +56,8 @@ There 3 supported ways to run this bot:
 
 ### Kubernetes
 
-#### Requirements
-- [kubernetes cluster](https://kubernetes.io/) 
-- [kubectl](https://kubernetes.io/docs/reference/kubectl/) installed
+You only need [kubectl](https://kubernetes.io/docs/reference/kubectl/).
 
-#### Run
 Use the ``example-...`` files from the ``kubernetes`` folder
 1. token-config.json
    1. Put your bot token into it ``example-token-config-map.yaml``
