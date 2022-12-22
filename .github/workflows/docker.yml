@@ -59,7 +59,7 @@ jobs:
       - name: Download kubeconfig
         run: |
           mkdir $HOME/.kube
-          echo ${{ secrets.KUBECONFIG }} >> $HOME/.kube/config
+          echo '${{ secrets.KUBECONFIG }}' >> $HOME/.kube/config
           wc -l $HOME/.kube/config
 
 
