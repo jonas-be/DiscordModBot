@@ -66,3 +66,4 @@ jobs:
           ls -la
           kubectl apply -f kubernetes/config-map.yaml
           kubectl apply -f kubernetes/deployment.yaml
+          kubectl rollout restart deployment jonas-server-dc-bot
