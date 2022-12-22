@@ -67,7 +67,7 @@ There 3 supported ways to run this bot:
 - [kubectl](https://kubernetes.io/docs/reference/kubectl/) installed
 
 #### Run
-Use the ``example-...`` files from the ``kuberntes`` folder
+Use the ``example-...`` files from the ``kubernetes`` folder
 1. token-config.json
    1. Put your bot token into it ``example-token-config-map.yaml``
    2. Deploy ```kubectl apply -f example-token-config-map.yaml```
