@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jonas-dc-bot-example-cfgmap
+data:
+  file-from-cfgmap: |
+    {
+      "clientId": "914132354212175915", // ID from bot
+      "status": "online", // online, idle, dnd
+      "activity": "on Kubernetes",
+      "activityType": 0,
+        // 0 = Playing {game}
+        // 1 = Streaming {details}
+        // 2 = Listening to {name}
+        // 3 = Watching {details}
+        // 5 = Competing in {name}
+      "guild": "843816498049056828", // guildID
+      "defaultRole": "914137388362641419", // roleID from the default role
+      "toggleRole": {
+        "command": "sortinghat",
+        "commandDescription": "Speaking hat",
+        "commandPermission": {
+          "roleIDs": ["914137059495653428"], // You can add more than one, example ["FIRST_ID", "SECOND_ID"] and so on...
+          "usersIDs": ["398876120696619008"] // You can add more than one
+        },
+        "deleteDefaultRole": true, // on role toggle lose default role
+        "selectorPlaceholder": "Choose your house",
+        "messageContent": "The speaking is asking you in which house you want",
+        "roles": [
+          {
+            "label": "\uD83D\uDFE5 -Gryffindor",
+            "description": "A house in Hogwarts",
+            "value": "gryffindor",
+            "roleId": "949751202931941447"
+          },
+          {
+            "label": "\uD83D\uDFE8 -Hufflepuff",
+            "description": "A house in Hogwarts",
+            "value": "hufflepuff",
+            "roleId": "949751287296167967"
+          },
+          {
+            "label": "\uD83D\uDFE6 -Ravenclaw",
+            "description": "A house in Hogwarts",
+            "value": "ravenclaw",
+            "roleId": "949751323870494751"
+          },
+          {
+            "label": "\uD83D\uDFE9 -Slytherin",
+            "description": "A house in Hogwarts",
+            "value": "slytherin",
+            "roleId": "949751321538490388"
+          }
+        ]
+      }
+    }

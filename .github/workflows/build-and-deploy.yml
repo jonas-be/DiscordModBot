@@ -52,7 +52,6 @@ jobs:
 
       - name: Deploy to cluster
         run: |
-          ls -la
-          kubectl apply -f kubernetes/config-map.yaml
-          kubectl apply -f kubernetes/deployment.yaml
+          kubectl apply -f kubernetes/jonas-server-config-map.yaml
+          kubectl apply -f kubernetes/jonas-server-deployment.yaml
           kubectl rollout restart deployment jonas-server-dc-bot

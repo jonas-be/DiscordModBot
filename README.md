@@ -1,18 +1,93 @@
 # DiscordModBot
 Discord Bot for modding and much more.
 
+## Features
+
+### Default-role
+
+The bot give user who join the server, the default-role.
+
+### Role-toggle
+
+Users can toggle their role in the role toggle. Here some Screenshots:
+
+![Role-toggle screenshot](screenshots/role-toggle-message.png)
+![Role-toggle menu screenshot](screenshots/role-toggle-menu-screenshot.png)
+![Role-toggle selected screenshot](screenshots/role-toggle-selected-screenshot.png)
+
+
 ## SetUp
 
-Create a file named `token-config.json` and copy and paste the following code in to it.
-You need to insert your token in this config.
+There 3 supported ways to run this bot:
+- nodejs
+- docker-compose
+- kubernetes
+
+
+### Nodejs
+
+#### Requirements
+ - [npm](https://www.npmjs.com/) installed
+ - [node](https://nodejs.org/) installed
+
+#### Run
+1. First clone this Repository
+2. Setup ``token-config.json``
+   1. create the file
+   2. Put your bot token into it
+3. Setup ``config.json``
+   1. create the file
+   2. Adjust the values
+4. Run ``npm install``
+5. Run ``npm run build``
+6. Run ``node dist/index.js``
+
+
+### Docker
+
+#### Requirements
+- [docker](https://docker.com/) installed
+- [docker-compose](https://docs.docker.com/compose/) installed
+
+#### Run
+1. First get the ``docker-compose.yml``
+2. Setup ``token-config.json``
+   1. create the file
+   2. Put your bot token into it
+3. Setup ``config.json``
+   1. create the file
+   2. Adjust the values
+4. Run ``docker compose up``
+
+
+### Kubernetes
+
+#### Requirements
+- [kubernetes cluster](https://kubernetes.io/) 
+- [kubectl](https://kubernetes.io/docs/reference/kubectl/) installed
+
+#### Run
+Use the ``example-...`` files from the ``kuberntes`` folder
+1. token-config.json
+   1. Put your bot token into it ``example-token-config-map.yaml``
+   2. Deploy ```kubectl apply -f example-token-config-map.yaml```
+2. config.json
+   1. Adjust values ``example-config-map.yaml``
+   2. Deploy ```kubectl apply -f example-config-map.yaml```
+3. Deploy the container ``kubectl apply -f example-deployment.yaml``
+
+
+
+## Example token-config.json
+You need to insert your bot-token in this config
 ```json
 {
   "token": "your-token"
 }
 ```
-You also need a config file.
 
-**Example `config.json`:**
+## Example config.json:
+**Important:** Delete the comments *(everything what starts with ``// ``)*
 ```json5
 {
   "clientId": "914132354212175915", // ID from bot
@@ -34,30 +109,30 @@ You also need a config file.
       "usersIDs": ["398876120696619008"] // You can add more than one
     },
     "deleteDefaultRole": true, // on role toggle lose default role
-    "selectorPlaceholder": "Wähle dein Haus",
-    "messageContent": "Zum Freischalten müsst ihr eine dieser Rollen wählen.\nWenn ihr nicht wisst was damit gemeint ist, dann könnt ihr auch von der Farbe her euch entscheiden.\nWelchen Rang ihr wählt spielt keine Rolle und ist theoretisch nur zum Spaß.",
+    "selectorPlaceholder": "Choose your house",
+    "messageContent": "The speaking is asking you in which house you want",
     "roles": [
       {
         "label": "\uD83D\uDFE5 -Gryffindor",
-        "description": "Ein Haus in Hogwarts",
+        "description": "A house in Hogwarts",
         "value": "gryffindor",
         "roleId": "949751202931941447"
       },
       {
         "label": "\uD83D\uDFE8 -Hufflepuff",
-        "description": "Ein Haus in Hogwarts",
+        "description": "A house in Hogwarts",
         "value": "hufflepuff",
         "roleId": "949751287296167967"
       },
       {
         "label": "\uD83D\uDFE6 -Ravenclaw",
-        "description": "Ein Haus in Hogwarts",
+        "description": "A house in Hogwarts",
         "value": "ravenclaw",
         "roleId": "949751323870494751"
       },
       {
         "label": "\uD83D\uDFE9 -Slytherin",
-        "description": "Ein Haus in Hogwarts",
+        "description": "A house in Hogwarts",
         "value": "slytherin",
         "roleId": "949751321538490388"
       }
