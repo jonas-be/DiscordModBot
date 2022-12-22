@@ -54,8 +54,8 @@ jobs:
         uses: azure/setup-kubectl@v3
         with:
           version: latest
-      - name: Upload kubeconfig
-        uses: actions/upload-artifact@v2
+      - name: Download kubeconfig
+        uses: actions/download-artifact@v2
         with:
           name: kubeconfig
           path: .kube/config
