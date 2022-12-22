@@ -60,11 +60,9 @@ jobs:
         run: |
           mkdir $HOME/.kube
           echo '${{ secrets.KUBECONFIG }}' >> $HOME/.kube/config
-          wc -l $HOME/.kube/config
-
 
       - name: Deploy to cluster
         run: |
           ls -la
-          kubectl apply -f ./kubernetes/config-map.yml
-          kubectl apply -f ./kubernetes/deployment.yml
+          kubectl apply -f kubernetes/config-map.yml
+          kubectl apply -f kubernetes/deployment.yml
