@@ -64,8 +64,8 @@ jobs:
           KUBECONFIG: ${{ secrets.KUBECONFIG }}
         run: |
           mkdir .kube
-          echo $KUBECONFIG >> $HOME/.kube/config
-          cat $HOME/.kube/config
+          echo $KUBECONFIG >> ./.kube/config
+          cat ./.kube/config
 
 
       - name: Deploy to cluster
