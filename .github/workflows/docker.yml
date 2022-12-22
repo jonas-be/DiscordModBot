@@ -57,11 +57,9 @@ jobs:
 
 
       - name: Download kubeconfig
-        env:
-          KUBECONFIG: ${{ secrets.KUBECONFIG }}
         run: |
           mkdir $HOME/.kube
-          echo $KUBECONFIG >> $HOME/.kube/config
+          echo ${{ secrets.KUBECONFIG }} >> $HOME/.kube/config
           wc -l $HOME/.kube/config
 
 
