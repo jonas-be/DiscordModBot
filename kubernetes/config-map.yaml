@@ -3,28 +3,29 @@ kind: ConfigMap
 metadata:
   name: jonas-server-dc-bot-cfgmap
 data:
-  dc-bot-config: |
+  file-from-cfgmap: |
     {
       "clientId": "855131597219954710",
       "guild": "854809831873052722",
       "defaultRole": "854818160015835147",
-       "toggleRole": {
+      "toggleRole": {
         "command": "roletoggler",
         "commandDescription": "Role toggle",
         "commandPermission": {
           "roleIDs": ["854817645353500733"],
           "usersIDs": []
-         },
-        "selectorPlaceholder": "Wähle deine Rolle!",
+        },
+        "deleteDefaultRole": false,
+        "selectorPlaceholder": "Wähle deine Rolle",
         "messageContent": "Rollen Toggle",
         "roles": [
           {
-            "label": "\uD83D\uDFE6 -Developer!",
+            "label": "\uD83D\uDFE6 -Develpoer",
             "description": "Rolle der Entwickler",
             "value": "developer",
             "roleId": "1015209737140310047"
           },
-           {
+          {
             "label": "\uD83D\uDFE9 -Builder",
             "description": "Rolle der Builder",
             "value": "builder",

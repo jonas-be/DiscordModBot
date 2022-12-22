@@ -6,9 +6,9 @@ name: Docker Build CI
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "main" ]
+    branches: [ "main", "feature/k8s-deployment" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "feature/k8s-deployment" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -24,9 +24,9 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-      
+
       - name: docker login
-        env: 
+        env:
           DOCKER_USER: ${{ secrets.DOCKER_USER }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: |
@@ -34,8 +34,32 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: docker build
-        run: | 
+        run: |
           docker build . -t jonasbe25/discord-mod-bot:latest
       - name: docker push
         run: |
           docker push jonasbe25/discord-mod-bot:latest
+  
+
+  deploy:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - name: Setup kubectl
+        uses: actions/setup-kubectl@v1
+        with:
+          version: latest
+      - name: Upload kubeconfig
+        uses: actions/upload-artifact@v2
+        with:
+          name: kubeconfig
+          path: .kube/config
+      - name: Deploy to cluster
+        run: |
+          kubectl apply -f ./kubernetes/config-map.yml
+          kubectl apply -f ./kubernetes/deployment.yml

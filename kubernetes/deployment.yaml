@@ -21,10 +21,10 @@ spec:
           volumeMounts:
             - name: conf
               mountPath: /app/config.json
-              subPath: dc-bot-config
+              subPath: file-from-cfgmap
             - name: token-conf
               mountPath: /app/token-config.json
-              subPath: dc-bot-token-config
+              subPath: file-from-cfgmap
       volumes:
         - name: conf
           configMap:
