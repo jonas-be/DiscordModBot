@@ -55,10 +55,11 @@ jobs:
         with:
           version: latest
       - name: Download kubeconfig
-        uses: actions/download-artifact@v2
-        with:
-          name: kubeconfig
-          path: .kube/config
+        run: | 
+          mkdir .kube
+          echo '${{ secrets.KUBECONFIG }}' >> ./.kube/config
+          cat ./.kube/config
+
       - name: Deploy to cluster
         run: |
           kubectl apply -f ./kubernetes/config-map.yml
