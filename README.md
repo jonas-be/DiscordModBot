@@ -13,7 +13,7 @@ You need to insert your token in this config.
 You also need a config file.
 
 **Example `config.json`:**
-```json
+```json5
 {
   "clientId": "914132354212175915", // ID from bot
   "status": "online", // online, idle, dnd 
