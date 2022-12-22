@@ -51,21 +51,17 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Setup kubectl
-        run: |
-          sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
-          echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
-          sudo apt-get update
-          sudo apt-get install -y kubectl
-          mkdir -p $HOME/.kube
+        uses: azure/setup-kubectl@v3
+        with:
+          version: latest
 
 
       - name: Download kubeconfig
         env:
           KUBECONFIG: ${{ secrets.KUBECONFIG }}
         run: |
-          mkdir .kube
-          echo $KUBECONFIG >> ./.kube/config
-          cat ./.kube/config
+          mkdir $HOME/.kube
+          echo $KUBECONFIG >> $HOME/.kube/config
 
 
       - name: Deploy to cluster
