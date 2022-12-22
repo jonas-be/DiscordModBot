@@ -64,5 +64,5 @@ jobs:
       - name: Deploy to cluster
         run: |
           ls -la
-          kubectl apply -f kubernetes/config-map.yml
-          kubectl apply -f kubernetes/deployment.yml
+          kubectl apply -f kubernetes/config-map.yaml
+          kubectl apply -f kubernetes/deployment.yaml
