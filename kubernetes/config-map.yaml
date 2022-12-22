@@ -6,6 +6,9 @@ data:
   file-from-cfgmap: |
     {
       "clientId": "855131597219954710",
+      "status": "online",
+      "activity": "on Kubernetes",
+      "activityType": 0,
       "guild": "854809831873052722",
       "defaultRole": "854818160015835147",
       "toggleRole": {

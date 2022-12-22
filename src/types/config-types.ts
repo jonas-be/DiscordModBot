@@ -1,5 +1,8 @@
 export type Config = {
     clientId: string,
+    status: string,
+    activity: string,
+    activityType: number,
     guild: string,
     defaultRole: string,
     toggleRole: {

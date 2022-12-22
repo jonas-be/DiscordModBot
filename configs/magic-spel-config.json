@@ -1,5 +1,8 @@
 {
   "clientId": "785837976512102420",
+  "status": "online",
+  "activity": "on Kubernetes",
+  "activityType": 0,
   "guild": "540080450958524416",
   "defaultRole": "812330719942017024",
   "toggleRole": {

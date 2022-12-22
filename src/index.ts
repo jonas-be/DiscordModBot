@@ -2,15 +2,19 @@ import {JoinLeave} from "./listeners/join-leave";
 import {Messages} from "./listeners/messages";
 import {RoleToggler} from "./commands/role-toggler";
 import {CommandUpdater} from "./utils/command-updater";
+import {BotStatus} from "./status/bot-status";
 
-const { Client, GatewayIntentBits } = require('discord.js');
-const tokenConfig  = require('../token-config.json');
-const config  = require('../config.json');
+const {Client, GatewayIntentBits} = require('discord.js');
+const tokenConfig = require('../token-config.json');
+const config = require('../config.json');
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMembers, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildIntegrations ] });
+const client = new Client({intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMembers, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildIntegrations]});
 
 client.once('ready', (c: { user: { tag: any; }; }) => {
     console.log(`Ready! Logged in as ${c.user.tag}`);
+
+    new BotStatus(client, config).register()
+
 });
 
 
