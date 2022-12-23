@@ -1,24 +1,18 @@
-import {ActivityType, Client} from "discord.js";
-import {Config} from "../types/config-types";
+import {client, config} from "../index";
+import {log} from "../utils/log-util";
+
 
 export class BotStatus {
-    private client: Client;
-    private config: Config;
-
-    constructor(client: Client, config: Config) {
-        this.client = client
-        this.config = config
-    }
 
     register() {
-        const user = this.client.user;
+        const user = client.user;
         if (user !== null) {
             // @ts-ignore
-            user.setStatus(this.config.status) // 'online' | 'idle' | 'dnd'
-            user.setActivity(this.config.activity, {type: this.config.activityType})
+            user.setStatus(config.status) // 'online' | 'idle' | 'dnd'
+            user.setActivity(config.activity, {type: config.activityType})
             // name?: string; // url?: string; // type?: Exclude<ActivityType, ActivityType.Custom>; // shardId?: number | readonly number[];
         } else {
-            console.log("can not display status")
+            log("can not display status")
         }
 
     }

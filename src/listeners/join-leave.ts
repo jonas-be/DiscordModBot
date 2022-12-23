@@ -1,23 +1,17 @@
-import {Client, GuildMember, Role} from "discord.js";
-import {Config} from "../types/config-types";
+import {GuildMember} from "discord.js";
 import {RoleManager} from "../utils/role-manager";
+import {client, config} from "../index";
+import {log} from "../utils/log-util";
 
 export class JoinLeave {
-    private client: Client;
-    private config: Config;
-
-    constructor(client: Client, config: Config) {
-        this.client = client
-        this.config = config
-    }
 
     register() {
-        this.client.on("guildMemberAdd", async (member: GuildMember) =>{
-            console.log(`a user joins a guild: ${member.user.tag}`);
+        client.on("guildMemberAdd", async (member: GuildMember) => {
+            log(`a user joins a guild: ${member.user.tag}`);
 
             const roleManager = new RoleManager(member)
 
-            roleManager.addRole(roleManager.getRoleById(this.config.defaultRole))
+            roleManager.addRole(roleManager.getRoleById(config.defaultRole))
         });
     }
 }
