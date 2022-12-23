@@ -10,6 +10,7 @@ data:
       "activity": "on Kubernetes",
       "activityType": 0,
       "guild": "854809831873052722",
+      "logChannel": "1055651797924073512",
       "defaultRole": "854818160015835147",
       "toggleRole": {
         "command": "roletoggler",
