@@ -4,6 +4,7 @@ export type Config = {
     activity: string,
     activityType: number,
     guild: string,
+    logChannel: string,
     defaultRole: string,
     toggleRole: {
         command: string,

@@ -1,47 +1,42 @@
-import {Client, GuildMember, SlashCommandBuilder} from "discord.js";
-import {Config} from "../types/config-types";
+import {GuildMember, Interaction, SlashCommandBuilder} from "discord.js";
 import {RoleManager} from "../utils/role-manager";
 import {PermissionManager} from "../utils/permission-manager";
+import {client, config} from "../index";
+import {log} from "../utils/log-util";
 
 const {ActionRowBuilder, SelectMenuBuilder} = require('discord.js');
 
 export class RoleToggler {
-    private client: Client;
-    private config: Config;
 
-    constructor(client: Client, config: Config) {
-        this.client = client
-        this.config = config
-    }
 
-    static command(config: Config) {
+    static command() {
         return new SlashCommandBuilder()
             .setName(config.toggleRole.command)
             .setDescription(config.toggleRole.commandDescription)
     }
 
     register() {
-        this.client.on('interactionCreate', async (interaction) => {
+        client.on('interactionCreate', async (interaction: Interaction) => {
 
-            if (interaction.guild != this.client.guilds.cache.get(this.config.guild)) return
+            if (interaction.guild != client.guilds.cache.get(config.guild)) return
 
             if (interaction.isChatInputCommand()) {
-                if (interaction.commandName === this.config.toggleRole.command && interaction.member instanceof GuildMember) {
-                    if (new PermissionManager(this.config.toggleRole.commandPermission).hasUserPermission(interaction.member)) {
-                      const row = new ActionRowBuilder()
-                      .addComponents(
-                          new SelectMenuBuilder()
-                          .setCustomId('role-select')
-                          .setPlaceholder(this.config.toggleRole.selectorPlaceholder)
-                          .addOptions(
-                              this.config.toggleRole.roles
-                          ),
-                      );
+                if (interaction.commandName === config.toggleRole.command && interaction.member instanceof GuildMember) {
+                    if (new PermissionManager(config.toggleRole.commandPermission).hasUserPermission(interaction.member)) {
+                        const row = new ActionRowBuilder()
+                            .addComponents(
+                                new SelectMenuBuilder()
+                                    .setCustomId('role-select')
+                                    .setPlaceholder(config.toggleRole.selectorPlaceholder)
+                                    .addOptions(
+                                        config.toggleRole.roles
+                                    ),
+                            );
 
-                      await interaction.reply({
-                        content: this.config.toggleRole.messageContent,
-                        components: [row]
-                      });
+                        await interaction.reply({
+                            content: config.toggleRole.messageContent,
+                            components: [row]
+                        });
                     } else {
                         await interaction.reply({
                             content: `Du hast nicht die nötigen Rechte!`,
@@ -57,7 +52,7 @@ export class RoleToggler {
                     //@ts-ignore
                     const roleManager = new RoleManager(interaction.member)
                     let selected = interaction.values
-                    for (const roleToToggle of this.config.toggleRole.roles) {
+                    for (const roleToToggle of config.toggleRole.roles) {
                         if (roleToToggle.value == selected[0]) {
                             roleManager.addRole(roleManager.getRoleById(roleToToggle.roleId))
                             roleAdded = `<@&${roleToToggle.roleId}>`
@@ -65,11 +60,11 @@ export class RoleToggler {
                             roleManager.removeRole(roleManager.getRoleById(roleToToggle.roleId))
                         }
                     }
-                    if (this.config.toggleRole.deleteDefaultRole) {
-                        console.log("delete join role")
-                        roleManager.removeRole(roleManager.getRoleById(this.config.defaultRole))
+                    if (config.toggleRole.deleteDefaultRole) {
+                        log("delete join role")
+                        roleManager.removeRole(roleManager.getRoleById(config.defaultRole))
                     }
-                    await interaction.reply({ content: `Deine Rolle wurde zu ${roleAdded} geändert!`, ephemeral: true });
+                    await interaction.reply({content: `Deine Rolle wurde zu ${roleAdded} geändert!`, ephemeral: true});
                 }
             }
         });

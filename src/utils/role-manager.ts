@@ -1,4 +1,6 @@
 import {Guild, GuildMember, Role} from "discord.js";
+import {log} from "../utils/log-util";
+
 
 export class RoleManager {
     private guild: Guild
@@ -12,26 +14,26 @@ export class RoleManager {
     addRole(role: Role | undefined) {
         if (role === undefined) return
         this.member.roles.add(role)
-            .then(r => console.log(`+++ ${role.name} => ${r.user.username}`))
+            .then(r => log(`+++ ${role.name} => ${r.user.username}`))
     }
 
     removeRole(role: Role | undefined) {
         if (role === undefined) return
         this.member.roles.remove(role)
-            .then(r =>  console.log(`--- ${role.name} => ${r.user.username}`))
+            .then(r => log(`--- ${role.name} => ${r.user.username}`))
     }
 
     getRoleById(id: string): Role | undefined {
         const role = this.guild.roles.cache.find((role: Role) => role.id === id);
         if (role === undefined)
-            console.log(`ERR: No Role found by id: ${id}`)
+            log(`ERR: No Role found by id: ${id}`)
         return role
     }
 
     getRoleByName(name: string): Role | undefined {
-        const role =this.guild.roles.cache.find((role: Role) => role.name === name);
+        const role = this.guild.roles.cache.find((role: Role) => role.name === name);
         if (role === undefined)
-            console.log(`ERR: No Role found by name: ${name}`)
+            log(`ERR: No Role found by name: ${name}`)
         return role
     }
 

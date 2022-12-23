@@ -1,17 +1,18 @@
-import {Client, SlashCommandBuilder} from "discord.js";
-import {Config, TokenConfig} from "../types/config-types";
+import {SlashCommandBuilder} from "discord.js";
+import {TokenConfig} from "../types/config-types";
+import {config} from "../index";
+import {log} from "../utils/log-util";
+
 
 const {REST, Routes} = require('discord.js');
 
 export class CommandUpdater {
     private clientId: string;
     private guildId: string
-    private client: Client;
     private tokenConfig: TokenConfig;
     private slashCommands: SlashCommandBuilder[]
 
-    constructor(client: Client, tokenConfig: TokenConfig, config: Config, slashCommands: SlashCommandBuilder[]) {
-        this.client = client
+    constructor(tokenConfig: TokenConfig, slashCommands: SlashCommandBuilder[]) {
         this.tokenConfig = tokenConfig
         this.slashCommands = slashCommands
         this.clientId = config.clientId
@@ -28,14 +29,14 @@ export class CommandUpdater {
 
         (async () => {
             try {
-                console.log(`Started refreshing ${commands.length} application (/) commands.`);
+                log(`Started refreshing ${commands.length} application (/) commands.`);
 
                 const data = await rest.put(
                     Routes.applicationGuildCommands(this.clientId, this.guildId),
                     {body: commands},
                 );
 
-                console.log(`Successfully reloaded ${data.length} application (/) commands.`);
+                log(`Successfully reloaded ${data.length} application (/) commands.`);
             } catch (error) {
                 console.error(error);
             }
