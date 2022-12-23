@@ -1,8 +1,8 @@
 {
   "clientId": "785837976512102420",
   "status": "online",
-  "activity": "Kubernetes",
-  "activityType": 0,
+  "activity": "",
+  "activityType": -1,
   "guild": "540080450958524416",
   "logChannel": "925089124640247809",
   "defaultRole": "812330719942017024",
