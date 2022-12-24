@@ -91,6 +91,7 @@ You need to insert your bot-token in this config
         // 3 = Watching {details}
         // 5 = Competing in {name}
   "guild": "843816498049056828", // guildID
+  "logChannel": "1055608746027528242",  // channel for log messages
   "defaultRole": "914137388362641419", // roleID from the default role
   "toggleRole": {
     "command": "sortinghat",
