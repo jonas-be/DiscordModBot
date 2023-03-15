@@ -1,0 +1,46 @@
+{
+  "clientId": "785837976512102420",
+  "status": "online",
+  "activity": "on Kubernetes",
+  "activityType": 0,
+  "guild": "540080450958524416",
+  "logChannel": "925089124640247809",
+  "defaultRole": "812330719942017024",
+  "toggleRole": {
+    "command": "sortinghat",
+    "commandDescription": "Sprechender Hut",
+    "commandPermission": {
+      "roleIDs": ["715589448641019945"],
+      "usersIDs": ["398876120696619008"]
+    },
+    "deleteDefaultRole": true,
+    "selectorPlaceholder": "Wähle dein Haus",
+    "messageContent": "Zum Freischalten müsst ihr eine dieser Rollen wählen.\nWenn ihr nicht wisst was damit gemeint ist, dann könnt ihr auch von der Farbe her euch entscheiden.\nWelchen Rang ihr wählt spielt keine Role.",
+    "roles": [
+      {
+        "label": "\uD83D\uDFE5 -Gryffindor",
+        "description": "Ein Haus in Hogwarts",
+        "value": "gryffindor",
+        "roleId": "715588952421171222"
+      },
+      {
+        "label": "\uD83D\uDFE8 -Hufflepuff",
+        "description": "Ein Haus in Hogwarts",
+        "value": "hufflepuff",
+        "roleId": "715588412744138813"
+      },
+      {
+        "label": "\uD83D\uDFE6 -Ravenclaw",
+        "description": "Ein Haus in Hogwarts",
+        "value": "ravenclaw",
+        "roleId": "715589174337470486"
+      },
+      {
+        "label": "\uD83D\uDFE9 -Slytherin",
+        "description": "Ein Haus in Hogwarts",
+        "value": "slytherin",
+        "roleId": "715588958649581639"
+      }
+    ]
+  }
+}

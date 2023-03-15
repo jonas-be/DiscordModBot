@@ -1,15 +1,12 @@
-import {Client,  Message} from "discord.js";
+import {Message} from "discord.js";
+import {client} from "../index";
+import {log} from "../utils/log-util";
+
 
 export class Messages {
-    private client: Client;
-
-    constructor(client: Client) {
-        this.client = client
-    }
 
     register() {
-        this.client.on("messageCreate", async (message: Message) => {
-            console.log(`${message.member?.user.tag}: ${message.content}`)
+        client.on("messageCreate", async (message: Message) => {
             if (message.content.startsWith("ping")) {
                 message.channel.send(`${message.member?.user} pong!`);
             }

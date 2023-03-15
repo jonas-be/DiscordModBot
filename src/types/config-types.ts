@@ -1,11 +1,16 @@
 export type Config = {
     clientId: string,
+    status: string,
+    activity: string,
+    activityType: number,
     guild: string,
+    logChannel: string,
     defaultRole: string,
     toggleRole: {
         command: string,
         commandDescription: string,
         commandPermission: Permission,
+        deleteDefaultRole: boolean,
         selectorPlaceholder: string,
         messageContent: string,
         roles: {

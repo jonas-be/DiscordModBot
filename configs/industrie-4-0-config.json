@@ -1,10 +1,19 @@
 {
   "clientId": "893595206157492295",
+  "status": "online",
+  "activity": "Kubernetes",
+  "activityType": 0,
   "guild": "1027232659224662116",
+  "logChannel": "1055653409702821889",
   "defaultRole": "1027233143054405723",
   "toggleRole": {
     "command": "jobrole",
     "commandDescription": "jobrole",
+    "commandPermission": {
+      "roleIDs": ["1027232659224662117"],
+      "usersIDs": ["398876120696619008"]
+    },
+    "deleteDefaultRole": false,
     "selectorPlaceholder": "Wähle dein Beruf aus",
     "messageContent": "Deine Rolle:",
     "roles": [

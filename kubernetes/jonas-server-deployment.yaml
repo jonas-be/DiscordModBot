@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jonas-server-dc-bot
+  labels:
+    app: dc-bot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dc-bot
+  template:
+    metadata:
+      labels:
+        app: dc-bot
+    spec:
+      containers:
+        - name: discord-mod-bot
+          image: jonasbe25/discord-mod-bot
+          ###### Mount the config map
+          volumeMounts:
+            - name: conf
+              mountPath: /app/config.json
+              subPath: file-from-cfgmap
+            - name: token-conf
+              mountPath: /app/token-config.json
+              subPath: file-from-cfgmap
+      volumes:
+        - name: conf
+          configMap:
+            name: jonas-server-dc-bot-cfgmap
+        - name: token-conf
+          configMap:
+            name: jonas-server-dc-bot-token-cfgmap

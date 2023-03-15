@@ -2,24 +2,31 @@ import {JoinLeave} from "./listeners/join-leave";
 import {Messages} from "./listeners/messages";
 import {RoleToggler} from "./commands/role-toggler";
 import {CommandUpdater} from "./utils/command-updater";
+import {BotStatus} from "./status/bot-status";
+import {log} from "./utils/log-util";
 
-const { Client, GatewayIntentBits } = require('discord.js');
-const tokenConfig  = require('../token-config.json');
-const config  = require('../config.json');
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMembers, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildIntegrations ] });
+const {Client, GatewayIntentBits} = require('discord.js');
+const tokenConfig = require('../token-config.json');
+
+
+export const config = require('../config.json');
+export const client = new Client({intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMembers, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildIntegrations]});
 
 client.once('ready', (c: { user: { tag: any; }; }) => {
-    console.log(`Ready! Logged in as ${c.user.tag}`);
+    log(`Ready! Logged in as ${c.user.tag}`);
+
+    new BotStatus().register()
+
 });
 
 
-new JoinLeave(client, config).register()
-new Messages(client).register()
+new JoinLeave().register()
+new Messages().register()
 
-new RoleToggler(client, config).register()
+new RoleToggler().register()
 
-new CommandUpdater(client, tokenConfig, config, [RoleToggler.command(config)]).update()
+new CommandUpdater(tokenConfig, [RoleToggler.command()]).update()
 
 
 client.login(tokenConfig.token);

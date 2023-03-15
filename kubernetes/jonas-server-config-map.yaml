@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jonas-server-dc-bot-cfgmap
+data:
+  file-from-cfgmap: |
+    {
+      "clientId": "855131597219954710",
+      "status": "online",
+      "activity": "Kubernetes",
+      "activityType": 0,
+      "guild": "854809831873052722",
+      "logChannel": "1055651797924073512",
+      "defaultRole": "854818160015835147",
+      "toggleRole": {
+        "command": "roletoggler",
+        "commandDescription": "Role toggle",
+        "commandPermission": {
+          "roleIDs": ["854817645353500733"],
+          "usersIDs": []
+        },
+        "deleteDefaultRole": false,
+        "selectorPlaceholder": "Wähle deine Rolle",
+        "messageContent": "Rollen Toggle",
+        "roles": [
+          {
+            "label": "\uD83D\uDFE6 -Develpoer",
+            "description": "Rolle der Entwickler",
+            "value": "developer",
+            "roleId": "1015209737140310047"
+          },
+          {
+            "label": "\uD83D\uDFE9 -Builder",
+            "description": "Rolle der Builder",
+            "value": "builder",
+            "roleId": "854818632248590356"
+          }
+        ]
+      }
+    }
+
+
