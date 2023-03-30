@@ -29,29 +29,3 @@ jobs:
       - name: docker push
         run: |
           docker push jonasbe25/discord-mod-bot:latest
-  
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Setup kubectl
-        uses: azure/setup-kubectl@v3
-        with:
-          version: latest
-
-
-      - name: Download kubeconfig
-        run: |
-          mkdir $HOME/.kube
-          echo '${{ secrets.KUBECONFIG }}' >> $HOME/.kube/config
-
-
-      - name: Deploy to cluster
-        run: |
-          kubectl apply -f kubernetes/jonas-server-config-map.yaml
-          kubectl apply -f kubernetes/jonas-server-deployment.yaml
-          kubectl rollout restart deployment jonas-server-dc-bot
