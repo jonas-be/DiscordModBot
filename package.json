@@ -2,7 +2,7 @@
   "dependencies": {
     "discord-api-types": "^0.37.37",
     "discord.js": "^14.8.0",
-    "npm": "^8.19.2",
+    "npm": "^9.8.1",
     "typescript": "^5.0.2"
   },
   "name": "discordmodbot",
