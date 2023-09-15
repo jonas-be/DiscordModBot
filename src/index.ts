@@ -4,6 +4,7 @@ import {RoleToggler} from "./commands/role-toggler";
 import {CommandUpdater} from "./utils/command-updater";
 import {BotStatus} from "./status/bot-status";
 import {log} from "./utils/log-util";
+import {DeleteMessages} from "./commands/delete-messages";
 
 
 const {Client, GatewayIntentBits} = require('discord.js');
@@ -25,8 +26,9 @@ new JoinLeave().register()
 new Messages().register()
 
 new RoleToggler().register()
+new DeleteMessages().register()
 
-new CommandUpdater(tokenConfig, [RoleToggler.command()]).update()
+new CommandUpdater(tokenConfig, [RoleToggler.command(), DeleteMessages.command()]).update()
 
 
 client.login(tokenConfig.token);

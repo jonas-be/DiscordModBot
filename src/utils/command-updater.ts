@@ -10,9 +10,9 @@ export class CommandUpdater {
     private clientId: string;
     private guildId: string
     private tokenConfig: TokenConfig;
-    private slashCommands: SlashCommandBuilder[]
+    private slashCommands: {}[]
 
-    constructor(tokenConfig: TokenConfig, slashCommands: SlashCommandBuilder[]) {
+    constructor(tokenConfig: TokenConfig, slashCommands: {}[]) {
         this.tokenConfig = tokenConfig
         this.slashCommands = slashCommands
         this.clientId = config.clientId
@@ -22,7 +22,7 @@ export class CommandUpdater {
     update() {
         let commands = [];
         for (const slashCommand of this.slashCommands) {
-            commands.push(slashCommand.toJSON());
+            commands.push(slashCommand);
         }
 
         const rest = new REST({version: '10'}).setToken(this.tokenConfig.token);

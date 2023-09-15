@@ -12,7 +12,7 @@ export class RoleToggler {
     static command() {
         return new SlashCommandBuilder()
             .setName(config.toggleRole.command)
-            .setDescription(config.toggleRole.commandDescription)
+            .setDescription(config.toggleRole.commandDescription).toJSON()
     }
 
     register() {

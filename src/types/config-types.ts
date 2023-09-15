@@ -20,6 +20,13 @@ export type Config = {
             roleId: string
         }[],
     }
+    deleteCommand: {
+        command: string,
+        commandDescription: string,
+        commandPermission: Permission,
+        amountOption: string,
+        amountOptionDescription: string,
+    }
 };
 
 export type TokenConfig = {
