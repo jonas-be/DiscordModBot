@@ -11,6 +11,7 @@
   "main": "index.js",
   "scripts": {
     "start": "tsc && node dist/index.js",
+    "i": "npm i",
     "build": "tsc"
   },
   "keywords": [],

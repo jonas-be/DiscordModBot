@@ -42,5 +42,15 @@
         "roleId": "715588958649581639"
       }
     ]
+  },
+  "deleteMessages": {
+    "command": "del",
+    "commandDescription": "Löscht so viele Nachrichten wie du angibst",
+    "commandPermission": {
+      "roleIDs": ["715589448641019945"],
+      "usersIDs": ["398876120696619008"]
+    },
+    "amountOption": "anzahl",
+    "amountOptionDescription": "Anzahl der Nachrichten die gelöscht werden sollen"
   }
 }
