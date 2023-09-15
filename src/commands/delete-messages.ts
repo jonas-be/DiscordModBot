@@ -36,7 +36,8 @@ export class DeleteMessages {
                         interaction.reply({content: '🗑️ ' + amount + ' ...', ephemeral: true});
                         for (const message of messages.values()) {
                             await message.delete()
-                            log(`${interaction.member.displayName} 🗑️ \`\`\`${message.content}\`\`\``)
+                            //@ts-ignore
+                            log(`**${interaction.member.displayName}** 🗑️ *~~${message.member.displayName}~~* \`\`\`${message.content}\`\`\``)
                         }
                     } else {
                         await interaction.reply({
